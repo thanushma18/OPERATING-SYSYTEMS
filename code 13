@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+int main() {
+    int blocks[5] = {100, 500, 200, 300, 600};
+    int process[4] = {212, 417, 112, 426};
+    int i, j;
+
+    int b1[5];
+    for(i=0;i<5;i++) b1[i]=blocks[i];
+
+    printf("\nFirst Fit:\n");
+    for(i=0;i<4;i++) {
+        for(j=0;j<5;j++) {
+            if(b1[j] >= process[i]) {
+                printf("Process %d -> Block %d\n", i+1, j+1);
+                b1[j] -= process[i];
+                break;
+            }
+        }
+        if(j==5)
+            printf("Process %d -> Not Allocated\n", i+1);
+    }
+
+    int b2[5];
+    for(i=0;i<5;i++) b2[i]=blocks[i];
+
+    printf("\nBest Fit:\n");
+    for(i=0;i<4;i++) {
+        int best = -1;
+        for(j=0;j<5;j++) {
+            if(b2[j] >= process[i]) {
+                if(best == -1 || b2[j] < b2[best])
+                    best = j;
+            }
+        }
+        if(best != -1) {
+            printf("Process %d -> Block %d\n", i+1, best+1);
+            b2[best] -= process[i];
+        } else {
+            printf("Process %d -> Not Allocated\n", i+1);
+        }
+    }
+
+    int b3[5];
+    for(i=0;i<5;i++) b3[i]=blocks[i];
+
+    printf("\nWorst Fit:\n");
+    for(i=0;i<4;i++) {
+        int worst = -1;
+        for(j=0;j<5;j++) {
+            if(b3[j] >= process[i]) {
+                if(worst == -1 || b3[j] > b3[worst])
+                    worst = j;
+            }
+        }
+        if(worst != -1) {
+            printf("Process %d -> Block %d\n", i+1, worst+1);
+            b3[worst] -= process[i];
+        } else {
+            printf("Process %d -> Not Allocated\n", i+1);
+        }
+    }
+
+    return 0;
+}
