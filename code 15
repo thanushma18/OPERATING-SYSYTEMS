@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_USERS 10
+#define MAX_FILES 10
+
+struct Directory {
+    char user[20];
+    char files[MAX_FILES][20];
+    int file_count;
+};
+
+int main() {
+    struct Directory dir[MAX_USERS];
+    int user_count = 0;
+    int choice, i, j;
+    char uname[20], fname[20];
+
+    while (1) {
+        printf("\n--- Two Level Directory ---\n");
+        printf("1. Create User\n");
+        printf("2. Create File\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+        case 1:
+            if (user_count >= MAX_USERS) {
+                printf("User limit reached!\n");
+                break;
+            }
+            printf("Enter user name: ");
+            scanf("%s", dir[user_count].user);
+            dir[user_count].file_count = 0;
+            user_count++;
+            break;
+
+        case 2:
+            printf("Enter user name: ");
+            scanf("%s", uname);
+
+            for (i = 0; i < user_count; i++) {
+                if (strcmp(dir[i].user, uname) == 0) {
+                    if (dir[i].file_count >= MAX_FILES) {
+                        printf("File limit reached!\n");
+                        break;
+                    }
+                    printf("Enter file name: ");
+                    scanf("%s", dir[i].files[dir[i].file_count]);
+                    dir[i].file_count++;
+                    break;
+                }
+            }
+            if (i == user_count)
+                printf("User not found!\n");
+            break;
+
+        case 3:
+            printf("\nDirectory Structure:\n");
+            for (i = 0; i < user_count; i++) {
+                printf("User: %s\n", dir[i].user);
+                for (j = 0; j < dir[i].file_count; j++) {
+                    printf("  %s\n", dir[i].files[j]);
+                }
+            }
+            break;
+
+        case 4:
+            return 0;
+
+        default:
+            printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
