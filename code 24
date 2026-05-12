@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <fcntl.h>     
+#include <unistd.h>   
+#include <string.h>    
+
+int main() {
+    int fd;
+    char write_buf[] = "Hello, this is a UNIX system call example!";
+    char read_buf[100];
+
+
+    fd = open("example.txt", O_CREAT | O_RDWR, 0777);
+
+    if (fd < 0) {
+        printf("Error opening file\n");
+        return 1;
+    }
+
+    printf("File created and opened successfully.\n");
+
+    write(fd, write_buf, strlen(write_buf));
+    printf("Data written to file.\n");
+
+    lseek(fd, 0, SEEK_SET);
+
+    read(fd, read_buf, sizeof(read_buf));
+
+    printf("Data read from file: %s\n", read_buf);
+
+    
+    close(fd);
+
+    printf("File closed successfully.\n");
+
+    return 0;
+}
