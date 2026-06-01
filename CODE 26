@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char str[100];
+
+    fp = fopen("file.txt", "w");
+    printf("Enter text: ");
+    gets(str);
+
+    fprintf(fp, "%s", str);
+    fclose(fp);
+
+    fp = fopen("file.txt", "r");
+    fgets(str, 100, fp);
+
+    printf("File Contents: %s\n", str);
+
+    fclose(fp);
+    return 0;
+}
