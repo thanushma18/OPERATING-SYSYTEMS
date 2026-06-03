@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int main() {
+    int buffer = 0, n, i;
+
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+
+    for(i = 1; i <= n; i++) {
+        buffer++;
+        printf("Producer produced item %d\n", i);
+    }
+
+    for(i = 1; i <= n; i++) {
+        buffer--;
+        printf("Consumer consumed item %d\n", i);
+    }
+
+    return 0;
+}
