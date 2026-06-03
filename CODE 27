@@ -1,0 +1,12 @@
+#include <iostream>
+#include <dirent.h>
+using namespace std;
+
+int main() {
+    DIR *d = opendir(".");
+    dirent *f;
+    while ((f = readdir(d)))
+        cout << f->d_name << endl;
+    closedir(d);
+    return 0;
+}
