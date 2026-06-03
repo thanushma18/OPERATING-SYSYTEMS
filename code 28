@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char line[100], key[20];
+    FILE *fp = fopen("input.txt", "r");
+
+    printf("Enter word to search: ");
+    scanf("%s", key);
+
+    while (fgets(line, sizeof(line), fp))
+        if (strstr(line, key))
+            printf("%s", line);
+
+    fclose(fp);
+    return 0;
+}
